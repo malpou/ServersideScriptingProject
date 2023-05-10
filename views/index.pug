@@ -1,0 +1,21 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        meta(http-equiv="X-UA-Compatible", content="ie=edge")
+        title Document
+    body
+        h1 Users
+        a(href="/create/user") Create User
+        each user in users
+            h2 #{user.username}
+            h3 #{user.email}
+            img(src=`data:image/jpeg;base64,${user.profile_picture}`)
+            br
+            button(onclick=`location.href='/edit/user?id=${user.id}'`) Edit
+            form(style="display:inline;", method="post", action="/delete/user")
+                input(type="hidden", name="_method", value="delete")
+                input(type="hidden", name="id", value=user.id)
+                button(type="submit") Delete
+            hr

@@ -1,0 +1,23 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        meta(http-equiv="X-UA-Compatible", content="ie=edge")
+        title Edit User
+    body
+        h1 Edit User
+        form(method="post", action="/edit/user" enctype="multipart/form-data")
+            input(type="hidden", name="id", value=user.id)
+            label Username
+            input(type="text", name="username", value=user.username)
+            br
+            label Email
+            input(type="text", name="email", value=user.email)
+            br
+            label Profile Picture
+            img(src=`data:image/jpeg;base64,${user.profile_picture}`)
+            br
+            input(type="file", name="profile_picture" accept="image/jpeg, image/png")
+            br
+            button(type="submit") Update User
