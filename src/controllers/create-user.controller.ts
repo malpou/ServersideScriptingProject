@@ -1,12 +1,13 @@
 import * as express from 'express';
 import {Prisma} from '@prisma/client';
-import {Request, Response} from 'express';
+import {NextFunction, Request, Response} from 'express';
 import IControllerBase from 'interfaces/IControllerBase.interface';
 import UserRepository from '../data/user.repository';
 import * as multer from 'multer';
 import {processProfilePicture} from '../utils/imageProcessing';
 import authenticationMiddleware from "../middleware/authentication";
 import {setAndGetServerHash} from "../utils/setAndGetServerHash";
+import {isValidEmail} from "../utils/validation";
 
 const upload = multer();
 
@@ -32,7 +33,7 @@ class CreateUserController implements IControllerBase {
      */
     public initRoutes() {
         this.router.get(this.path, this.create);
-        this.router.post(this.path, upload.single('profile_picture'), authenticationMiddleware, this.store);
+        this.router.post(this.path, upload.single('profile_picture'), this.validateUserCreation, authenticationMiddleware, this.store);
     }
 
     /**
@@ -61,6 +62,34 @@ class CreateUserController implements IControllerBase {
 
         await this.userRepo.createUser(userData);
         res.redirect('/');
+    };
+
+    /**
+     * Middleware function to validate user creation data.
+     * @param {Request} req - The request object.
+     * @param {Response} res - The response object.
+     * @param {NextFunction} next - The next function in the middleware chain.
+     */
+    private validateUserCreation = (req: Request, res: Response, next: NextFunction) => {
+        const {username, email} = req.body;
+        const profilePicture = req.file;
+
+        if (!username || username.length < 3 || username.length > 20) {
+            res.status(400).send('Invalid username: must be between 3 and 20 characters');
+            return;
+        }
+
+        if (!isValidEmail(email)) {
+            res.status(400).send('Invalid email: must be a valid email address');
+            return;
+        }
+
+        if (!profilePicture) {
+            res.status(400).send('Invalid profile picture: must be provided');
+            return;
+        }
+
+        next();
     };
 }
 

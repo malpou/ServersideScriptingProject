@@ -1,5 +1,5 @@
 import * as express from 'express';
-import {Request, Response} from 'express';
+import {NextFunction, Request, Response} from 'express';
 import IControllerBase from 'interfaces/IControllerBase.interface';
 import UserRepository from '../data/user.repository';
 import * as multer from 'multer';
@@ -7,6 +7,7 @@ import {processProfilePicture} from '../utils/imageProcessing';
 import {Users} from "@prisma/client";
 import authenticationMiddleware from "../middleware/authentication";
 import {setAndGetServerHash} from "../utils/setAndGetServerHash";
+import {isValidEmail} from "../utils/validation";
 
 const upload = multer();
 
@@ -32,7 +33,7 @@ class EditUserController implements IControllerBase {
      */
     public initRoutes() {
         this.router.get(this.path, this.edit);
-        this.router.post(this.path, upload.single('profile_picture'), authenticationMiddleware, this.update);
+        this.router.post(this.path, upload.single('profile_picture'), this.validateUserUpdate, authenticationMiddleware, this.update);
     }
 
     /**
@@ -66,6 +67,28 @@ class EditUserController implements IControllerBase {
 
         await this.userRepo.updateUser(id, userData);
         res.redirect('/');
+    };
+    
+    /**
+     * Middleware function to validate user update data.
+     * @param {Request} req - The request object.
+     * @param {Response} res - The response object.
+     * @param {NextFunction} next - The next function in the middleware chain.
+     */
+    private validateUserUpdate = (req: Request, res: Response, next: NextFunction) => {
+        const {username, email} = req.body;
+
+        if (!username || username.length < 3 || username.length > 20) {
+            res.status(400).send('Invalid username: must be between 3 and 20 characters');
+            return;
+        }
+
+        if (!isValidEmail(email)) {
+            res.status(400).send('Invalid email: must be a valid email address');
+            return;
+        }
+
+        next();
     };
 }
 

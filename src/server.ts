@@ -24,8 +24,8 @@ const app = new App({
 app.listen();
 
 // TODO 1: Styling the app
-// TODO 2: Add server-side validation
-// TODO 3: Add client-side validation
+// DONE 2: Add server-side validation
+// DONE 3: Add client-side validation
 // TODO 4: Add error handling
 // TODO 5: Add tests
 // DONE 6: Add authentication
