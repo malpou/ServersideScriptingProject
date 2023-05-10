@@ -7,15 +7,22 @@ html(lang="en")
         title Create User
     body
         h1 Create User
-        form(method="post" action="/create/user" enctype="multipart/form-data")
+        form(id="createForm" method="post" action="/create/user" enctype="multipart/form-data")
             input(type="hidden", name="key", value=serverHash)
             label Username
-            input(type="text", name="username")
+            input(type="text", name="username", required, minlength=3, maxlength=20)
             br
             label Email
-            input(type="text", name="email")
+            input(type="email", name="email", required)
             br
             label Profile Picture
-            input(type="file", name="profile_picture" accept="image/jpeg, image/png")
+            input(type="file", name="profile_picture" accept="image/jpeg, image/png", required)
             br
             button(type="submit") Create User
+        script.
+            document.getElementById('createForm').addEventListener('submit', function(event) {
+                if (!this.checkValidity()) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+            });

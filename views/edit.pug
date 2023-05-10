@@ -7,14 +7,14 @@ html(lang="en")
         title Edit User
     body
         h1 Edit User
-        form(method="post", action="/edit/user" enctype="multipart/form-data")
+        form(id="editForm" method="post", action="/edit/user" enctype="multipart/form-data")
             input(type="hidden", name="key", value=serverHash)
             input(type="hidden", name="id", value=user.id)
             label Username
-            input(type="text", name="username", value=user.username)
+            input(type="text", name="username", value=user.username, required, minlength=3, maxlength=20)
             br
             label Email
-            input(type="text", name="email", value=user.email)
+            input(type="email", name="email", value=user.email, required)
             br
             label Profile Picture
             img(src=`data:image/jpeg;base64,${user.profile_picture}`)
@@ -22,3 +22,10 @@ html(lang="en")
             input(type="file", name="profile_picture" accept="image/jpeg, image/png")
             br
             button(type="submit") Update User
+        script.
+            document.getElementById('editForm').addEventListener('submit', function(event) {
+                if (!this.checkValidity()) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+            });
