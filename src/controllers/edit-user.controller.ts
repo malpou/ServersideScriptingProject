@@ -1,10 +1,12 @@
 import * as express from 'express';
-import { Request, Response } from 'express';
+import {Request, Response} from 'express';
 import IControllerBase from 'interfaces/IControllerBase.interface';
 import UserRepository from '../data/user.repository';
 import * as multer from 'multer';
-import { processProfilePicture } from '../utils/imageProcessing';
-import { Users } from "@prisma/client";
+import {processProfilePicture} from '../utils/imageProcessing';
+import {Users} from "@prisma/client";
+import authenticationMiddleware from "../middleware/authentication";
+import {setAndGetServerHash} from "../utils/setAndGetServerHash";
 
 const upload = multer();
 
@@ -30,7 +32,7 @@ class EditUserController implements IControllerBase {
      */
     public initRoutes() {
         this.router.get(this.path, this.edit);
-        this.router.post(this.path, upload.single('profile_picture'), this.update);
+        this.router.post(this.path, upload.single('profile_picture'), authenticationMiddleware, this.update);
     }
 
     /**
@@ -42,7 +44,7 @@ class EditUserController implements IControllerBase {
         const id = parseInt(req.query.id as string);
         const user = await this.userRepo.getUserById(id);
 
-        res.render('edit', { user });
+        res.render('edit', {user, serverHash: setAndGetServerHash(req)});
     };
 
     /**

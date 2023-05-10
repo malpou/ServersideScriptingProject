@@ -8,6 +8,7 @@ html(lang="en")
     body
         h1 Create User
         form(method="post" action="/create/user" enctype="multipart/form-data")
+            input(type="hidden", name="key", value=serverHash)
             label Username
             input(type="text", name="username")
             br

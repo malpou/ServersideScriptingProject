@@ -1,5 +1,6 @@
 import * as express from 'express'
-import { Application } from 'express'
+import {Application} from 'express'
+import session = require("express-session");
 
 /**
  * The main application class that initializes and configures an Express app.
@@ -26,13 +27,21 @@ class App {
     }
 
     /**
-     * Registers the middleware functions.
+     * Registers the middleware functions and initializes session middleware.
      * @param {Array} middleWares - The array of middleware functions to use.
      */
     private middlewares(middleWares: { forEach: (arg0: (middleWare: any) => void) => void; }) {
         middleWares.forEach(middleWare => {
-            this.app.use(middleWare)
-        })
+            this.app.use(middleWare);
+        });
+
+        this.app.use(
+            session({
+                secret: process.env.SESSION_SECRET || 'unsafe-secret',
+                resave: false,
+                saveUninitialized: true,
+            }),
+        );
     }
 
     /**

@@ -17,5 +17,6 @@ html(lang="en")
             form(style="display:inline;", method="post", action="/delete/user")
                 input(type="hidden", name="_method", value="delete")
                 input(type="hidden", name="id", value=user.id)
+                input(type="hidden", name="key", value=serverHash)
                 button(type="submit") Delete
             hr

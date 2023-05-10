@@ -5,6 +5,8 @@ import IControllerBase from 'interfaces/IControllerBase.interface';
 import UserRepository from '../data/user.repository';
 import * as multer from 'multer';
 import {processProfilePicture} from '../utils/imageProcessing';
+import authenticationMiddleware from "../middleware/authentication";
+import {setAndGetServerHash} from "../utils/setAndGetServerHash";
 
 const upload = multer();
 
@@ -30,7 +32,7 @@ class CreateUserController implements IControllerBase {
      */
     public initRoutes() {
         this.router.get(this.path, this.create);
-        this.router.post(this.path, upload.single('profile_picture'), this.store);
+        this.router.post(this.path, upload.single('profile_picture'), authenticationMiddleware, this.store);
     }
 
     /**
@@ -39,7 +41,7 @@ class CreateUserController implements IControllerBase {
      * @param {Response} res - The response object.
      */
     create = (req: Request, res: Response) => {
-        res.render('create');
+        res.render('create', {serverHash: setAndGetServerHash(req)});
     };
 
     /**

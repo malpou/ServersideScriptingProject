@@ -8,6 +8,7 @@ html(lang="en")
     body
         h1 Edit User
         form(method="post", action="/edit/user" enctype="multipart/form-data")
+            input(type="hidden", name="key", value=serverHash)
             input(type="hidden", name="id", value=user.id)
             label Username
             input(type="text", name="username", value=user.username)

@@ -28,6 +28,7 @@ app.listen();
 // TODO 3: Add client-side validation
 // TODO 4: Add error handling
 // TODO 5: Add tests
-// TODO 6: Add authentication
+// DONE 6: Add authentication
 // TODO 7: Add typedoc documentation
 // TODO 8: Deploy to render.com
+// TODO 9: Add authentication with passport.js
