@@ -47,6 +47,13 @@ html(lang="en")
                 border-radius: 5px;
             }
 
+            img#profile_picture_preview {
+                max-width: 200px;
+                max-height: 200px;
+                object-fit: contain;
+                padding-bottom: 10px;
+            }
+
             button {
                 padding: 10px 20px;
                 margin-top: 10px;
@@ -69,10 +76,25 @@ html(lang="en")
             label(for="email") Email
             input(type="email", name="email", id="email", required)
             label(for="profile_picture") Profile Picture
+            img(id="profile_picture_preview")
             input(type="file", name="profile_picture", id="profile_picture", accept="image/jpeg, image/png", required)
             button(type="submit") Create User
         script.
             let form = document.getElementById('createForm');
+            let fileInput = document.getElementById('profile_picture');
+            let preview = document.getElementById('profile_picture_preview');
+            fileInput.addEventListener('change', function (e) {
+                let file = e.target.files[0];
+                let reader = new FileReader();
+                reader.onloadend = function () {
+                    preview.src = reader.result;
+                }
+                if (file) {
+                    reader.readAsDataURL(file);
+                } else {
+                    preview.src = "";
+                }
+            });
             form.addEventListener('submit', function (event) {
                 if (!this.checkValidity()) {
                     event.preventDefault();
