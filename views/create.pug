@@ -80,9 +80,9 @@ html(lang="en")
         form(id="createForm", method="post", action="/create/user", enctype="multipart/form-data")
             input(type="hidden", name="key", value=serverHash)
             label(for="username") Username
-            input(type="text", name="username", id="username", required, minlength=3, maxlength=20)
+            input(type="text", name="username", id="username", required, minlength=3, maxlength=20, value=oldUsername)
             label(for="email") Email
-            input(type="email", name="email", id="email", required)
+            input(type="email", name="email", id="email", required, value=oldEmail)
             label(for="profile_picture") Profile Picture
             img(id="profile_picture_preview")
             input(type="file", name="profile_picture", id="profile_picture", accept="image/jpeg, image/png", required)

@@ -43,8 +43,10 @@ class CreateUserController implements IControllerBase {
      */
     create = (req: Request, res: Response) => {
         const errorMessage = req.query.errorMessage as string;
+        const oldUsername = req.query.username as string;
+        const oldEmail = req.query.email as string;
 
-        res.render('create', {errorMessage, serverHash: setAndGetServerHash(req)});
+        res.render('create', {errorMessage, oldUsername, oldEmail, serverHash: setAndGetServerHash(req)});
     };
 
     /**
@@ -90,7 +92,7 @@ class CreateUserController implements IControllerBase {
         }
 
         if (errorMessage) {
-            return res.redirect(`/create/user?errorMessage=${errorMessage}`);
+            return res.redirect(`/create/user?errorMessage=${errorMessage}&username=${username}&email=${email}`);
         }
 
         next();

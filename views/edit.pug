@@ -81,9 +81,9 @@ html(lang="en")
             input(type="hidden", name="key", value=serverHash)
             input(type="hidden", name="id", value=user.id)
             label(for="username") Username
-            input(type="text", name="username", id="username", value=user.username, required, minlength=3, maxlength=20)
+            input(type="text", name="username", id="username", value=oldUsername || user.username, required, minlength=3, maxlength=20)
             label(for="email") Email
-            input(type="email", name="email", id="email", value=user.email, required)
+            input(type="email", name="email", id="email", value=oldEmail || user.email, required)
             label(for="profile_picture") Profile Picture
             img(id="profile_picture_preview", src=`data:image/jpeg;base64,${user.profile_picture}`)
             input(type="file", name="profile_picture", id="profile_picture", accept="image/jpeg, image/png")

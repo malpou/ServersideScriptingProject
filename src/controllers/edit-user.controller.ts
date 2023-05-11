@@ -44,9 +44,11 @@ class EditUserController implements IControllerBase {
     edit = async (req: Request, res: Response) => {
         const id = parseInt(req.query.id as string);
         const errorMessage = req.query.errorMessage as string;
+        const oldUsername = req.query.username as string;
+        const oldEmail = req.query.email as string;
         const user = await this.userRepo.getUserById(id);
 
-        res.render('edit', {user, errorMessage, serverHash: setAndGetServerHash(req)});
+        res.render('edit', {user, errorMessage, oldUsername, oldEmail, serverHash: setAndGetServerHash(req)});
     };
 
     /**
@@ -89,7 +91,7 @@ class EditUserController implements IControllerBase {
         }
 
         if (errorMessage) {
-            return res.redirect('/edit/user?id=' + id + '&errorMessage=' + errorMessage);
+            return res.redirect(`/edit/user?id=${id}&errorMessage=${errorMessage}&username=${username}&email=${email}`);
         }
 
         next();
