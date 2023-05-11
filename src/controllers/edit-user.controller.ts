@@ -48,6 +48,10 @@ class EditUserController implements IControllerBase {
         const oldEmail = req.query.email as string;
         const user = await this.userRepo.getUserById(id);
 
+        if (user === null) {
+            res.render('confirmation', {message: 'User does not exist'});
+        }
+
         res.render('edit', {user, errorMessage, oldUsername, oldEmail, serverHash: setAndGetServerHash(req)});
     };
 
