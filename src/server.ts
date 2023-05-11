@@ -28,7 +28,7 @@ app.listen();
 // TODO 1: Styling the app
 // DONE 2: Add server-side validation
 // DONE 3: Add client-side validation
-// TODO 4: Add error handling
+// DONE 4: Add error handling
 // TODO 5: Add tests
 // DONE 6: Add authentication
 // TODO 7: Add typedoc documentation
