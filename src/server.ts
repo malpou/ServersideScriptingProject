@@ -29,7 +29,7 @@ app.listen();
 // DONE 2: Add server-side validation
 // DONE 3: Add client-side validation
 // DONE 4: Add error handling
-// TODO 5: Add tests
+// TODO 5: Add controller tests
 // DONE 6: Add authentication
 // DONE 7: Add typedoc documentation
 // DONE 8: Deploy to render.com
@@ -37,4 +37,5 @@ app.listen();
 // TODO 10: Alert users when they are deleting a user
 // TODO 11: Add a confirmation page when a user is deleted that redirects to the home page after 5 seconds
 // TODO 12: Add image preview when creating a user
+// TODO 13: Fix bug that chrashes the app then email witout .dk is entered on edit user page
 
