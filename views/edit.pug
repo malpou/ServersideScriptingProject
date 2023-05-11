@@ -4,26 +4,98 @@ html(lang="en")
         meta(charset="UTF-8")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
         meta(http-equiv="X-UA-Compatible", content="ie=edge")
+        link(href='https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap' rel='stylesheet')
         title Edit User
+        style.
+            body {
+                font-family: 'Roboto', sans-serif;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                height: 100vh;
+                padding: 20px;
+                background-color: #f0f0f0;
+                margin: 0;
+            }
+
+            h1 {
+                margin-bottom: 20px;
+            }
+
+            form {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                width: 300px;
+                padding: 20px;
+                background-color: #ffffff;
+                border-radius: 5px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            }
+
+            label {
+                align-self: flex-start;
+                margin: 10px 0;
+            }
+
+            input[type="text"], input[type="email"], input[type="file"] {
+                width: 100%;
+                padding: 10px;
+                margin-bottom: 10px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+            }
+
+            img#profile_picture_preview {
+                max-width: 200px;
+                max-height: 200px;
+                object-fit: contain;
+                padding-bottom: 10px;
+            }
+
+            button {
+                padding: 10px 20px;
+                margin-top: 10px;
+                background-color: #007bff;
+                color: #ffffff;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+
+            button:hover {
+                opacity: 0.8;
+            }
     body
         h1 Edit User
         form(id="editForm" method="post", action="/edit/user" enctype="multipart/form-data")
             input(type="hidden", name="key", value=serverHash)
             input(type="hidden", name="id", value=user.id)
-            label Username
-            input(type="text", name="username", value=user.username, required, minlength=3, maxlength=20)
-            br
-            label Email
-            input(type="email", name="email", value=user.email, required)
-            br
-            label Profile Picture
-            img(src=`data:image/jpeg;base64,${user.profile_picture}`)
-            br
-            input(type="file", name="profile_picture" accept="image/jpeg, image/png")
-            br
+            label(for="username") Username
+            input(type="text", name="username", id="username", value=user.username, required, minlength=3, maxlength=20)
+            label(for="email") Email
+            input(type="email", name="email", id="email", value=user.email, required)
+            label(for="profile_picture") Profile Picture
+            img(id="profile_picture_preview", src=`data:image/jpeg;base64,${user.profile_picture}`)
+            input(type="file", name="profile_picture", id="profile_picture", accept="image/jpeg, image/png")
             button(type="submit") Update User
         script.
             let form = document.getElementById('editForm');
+            let fileInput = document.getElementById('profile_picture');
+            let preview = document.getElementById('profile_picture_preview');
+            fileInput.addEventListener('change', function (e) {
+                let file = e.target.files[0];
+                let reader = new FileReader();
+                reader.onloadend = function () {
+                    preview.src = reader.result;
+                }
+                if (file) {
+                    reader.readAsDataURL(file);
+                } else {
+                    preview.src = "";
+                }
+            });
             form.addEventListener('submit', function (event) {
                 if (!this.checkValidity()) {
                     event.preventDefault();

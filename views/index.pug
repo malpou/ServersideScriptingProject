@@ -4,19 +4,83 @@ html(lang="en")
         meta(charset="UTF-8")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
         meta(http-equiv="X-UA-Compatible", content="ie=edge")
-        title Document
+        link(href='https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap' rel='stylesheet')
+        title Users
+        style.
+            body {
+                font-family: 'Roboto', sans-serif;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                padding: 20px;
+                background-color: #f0f0f0;
+            }
+
+            h1, .create-link {
+                margin-bottom: 20px;
+            }
+
+            .create-link {
+                padding: 10px 20px;
+                background-color: #007bff;
+                color: #ffffff;
+                text-decoration: none;
+                border-radius: 5px;
+            }
+
+            .create-link:hover {
+                background-color: #0056b3;
+            }
+
+            .users-container {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: flex-start;
+                max-width: 1200px;
+            }
+
+            .user-card {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                width: 200px;
+                padding: 20px;
+                margin: 10px;
+                background-color: #ffffff;
+                border-radius: 5px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            }
+
+            button {
+                padding: 10px 20px;
+                margin-top: 10px;
+                background-color: #007bff;
+                color: #ffffff;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+
+            button[type="submit"] {
+                background-color: #dc3545;
+            }
+
+            button:hover {
+                opacity: 0.8;
+            }
     body
         h1 Users
-        a(href="/create/user") Create User
-        each user in users
-            h2 #{user.username}
-            h3 #{user.email}
-            img(src=`data:image/jpeg;base64,${user.profile_picture}`)
-            br
-            button(onclick=`location.href='/edit/user?id=${user.id}'`) Edit
-            form(style="display:inline;", method="post", action="/delete/user")
-                input(type="hidden", name="_method", value="delete")
-                input(type="hidden", name="id", value=user.id)
-                input(type="hidden", name="key", value=serverHash)
-                button(type="submit") Delete
-            hr
+        a.create-link(href="/create/user") Create New User
+        div.users-container
+            each user in users
+                div.user-card
+                    h2 #{user.username}
+                    h3 #{user.email}
+                    img(src=`data:image/jpeg;base64,${user.profile_picture}`)
+                    br
+                    button(onclick=`location.href='/edit/user?id=${user.id}'`) Edit
+                    form(style="display:inline;", method="post", action="/delete/user")
+                        input(type="hidden", name="_method", value="delete")
+                        input(type="hidden", name="id", value=user.id)
+                        input(type="hidden", name="key", value=serverHash)
+                        button(type="submit") Delete
