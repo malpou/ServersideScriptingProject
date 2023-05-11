@@ -42,7 +42,9 @@ class CreateUserController implements IControllerBase {
      * @param {Response} res - The response object.
      */
     create = (req: Request, res: Response) => {
-        res.render('create', {serverHash: setAndGetServerHash(req)});
+        const errorMessage = req.query.errorMessage as string;
+
+        res.render('create', {errorMessage, serverHash: setAndGetServerHash(req)});
     };
 
     /**
@@ -73,17 +75,22 @@ class CreateUserController implements IControllerBase {
     private validateUserCreation = (req: Request, res: Response, next: NextFunction) => {
         const {username, email} = req.body;
         const profilePicture = req.file;
+        let errorMessage;
 
         if (!username || username.length < 3 || username.length > 20) {
-            return next(new Error('Invalid username: must be between 3 and 20 characters'));
+            errorMessage = 'Invalid username: must be between 3 and 20 characters';
         }
 
         if (!isValidEmail(email)) {
-            return next(new Error('Invalid email: must be a valid email address'));
+            errorMessage = 'Invalid email: must be a valid email address';
         }
 
         if (!profilePicture) {
-            return next(new Error('Invalid profile picture: must be provided'));
+            errorMessage = 'Invalid profile picture: must be provided';
+        }
+
+        if (errorMessage) {
+            return res.redirect(`/create/user?errorMessage=${errorMessage}`);
         }
 
         next();

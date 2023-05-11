@@ -43,9 +43,10 @@ class EditUserController implements IControllerBase {
      */
     edit = async (req: Request, res: Response) => {
         const id = parseInt(req.query.id as string);
+        const errorMessage = req.query.errorMessage as string;
         const user = await this.userRepo.getUserById(id);
 
-        res.render('edit', {user, serverHash: setAndGetServerHash(req)});
+        res.render('edit', {user, errorMessage, serverHash: setAndGetServerHash(req)});
     };
 
     /**
@@ -76,14 +77,19 @@ class EditUserController implements IControllerBase {
      * @param {NextFunction} next - The next function in the middleware chain.
      */
     private validateUserUpdate = (req: Request, res: Response, next: NextFunction) => {
-        const {username, email} = req.body;
+        const {username, email, id} = req.body;
+        let errorMessage;
 
         if (!username || username.length < 3 || username.length > 20) {
-            return next(new Error('Invalid username: must be between 3 and 20 characters'));
+            errorMessage = 'Invalid username: must be between 3 and 20 characters';
         }
 
         if (!isValidEmail(email)) {
-            return next(new Error('Invalid email: must be a valid email address'));
+            errorMessage = 'Invalid email: must be a valid email address';
+        }
+
+        if (errorMessage) {
+            return res.redirect('/edit/user?id=' + id + '&errorMessage=' + errorMessage);
         }
 
         next();

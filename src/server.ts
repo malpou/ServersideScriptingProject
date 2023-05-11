@@ -37,5 +37,6 @@ app.listen();
 // DONE 10: Alert users when they are deleting a user
 // DONE 11: Add a confirmation page when a user is deleted that redirects to the home page after 5 seconds
 // DONE 12: Add image preview when creating a user
-// TODO 13: Fix bug that chrashes the app then email witout .dk is entered on edit user page
-
+// DONE 13: Fix bug that chrashes the app then email witout .dk is entered on edit user page
+// TODO 14: On edit user page, if the user does not exist, redirect to the home page
+// TODO 15: Persist data when editing or creating a user and the validation fails
