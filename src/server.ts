@@ -40,3 +40,6 @@ app.listen();
 // DONE 13: Fix bug that chrashes the app then email witout .dk is entered on edit user page
 // DONE 14: On edit user page, if the user does not exist, redirect to the home page
 // DONE 15: Persist data when editing or creating a user and the validation fails
+// TODO 16: Validate file type when uploading a profile picture and set max file size to 1 MB
+// TODO 17: Add a loading spinner when uploading a profile picture
+// TODO 18: Sanitize username and ensure that it's not already taken
