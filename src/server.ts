@@ -2,6 +2,7 @@ import App from './app';
 
 import * as bodyParser from 'body-parser';
 import loggerMiddleware from './middleware/logger';
+import errorHandler from "./middleware/error";
 
 import HomeController from './controllers/home.controller';
 import EditUserController from "./controllers/edit-user.controller";
@@ -18,6 +19,7 @@ const app = new App({
         bodyParser.json(),
         bodyParser.urlencoded({extended: true}),
         loggerMiddleware,
+        errorHandler,
     ],
 });
 

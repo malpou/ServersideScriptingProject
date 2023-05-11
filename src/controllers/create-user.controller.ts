@@ -75,18 +75,15 @@ class CreateUserController implements IControllerBase {
         const profilePicture = req.file;
 
         if (!username || username.length < 3 || username.length > 20) {
-            res.status(400).send('Invalid username: must be between 3 and 20 characters');
-            return;
+            return next(new Error('Invalid username: must be between 3 and 20 characters'));
         }
 
         if (!isValidEmail(email)) {
-            res.status(400).send('Invalid email: must be a valid email address');
-            return;
+            return next(new Error('Invalid email: must be a valid email address'));
         }
 
         if (!profilePicture) {
-            res.status(400).send('Invalid profile picture: must be provided');
-            return;
+            return next(new Error('Invalid profile picture: must be provided'));
         }
 
         next();

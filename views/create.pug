@@ -20,9 +20,11 @@ html(lang="en")
             br
             button(type="submit") Create User
         script.
-            document.getElementById('createForm').addEventListener('submit', function(event) {
+            let form = document.getElementById('createForm');
+            form.addEventListener('submit', function (event) {
                 if (!this.checkValidity()) {
                     event.preventDefault();
                     event.stopPropagation();
                 }
+                form.classList.add('was-validated');
             });

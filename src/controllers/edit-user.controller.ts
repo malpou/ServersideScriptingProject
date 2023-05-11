@@ -68,7 +68,7 @@ class EditUserController implements IControllerBase {
         await this.userRepo.updateUser(id, userData);
         res.redirect('/');
     };
-    
+
     /**
      * Middleware function to validate user update data.
      * @param {Request} req - The request object.
@@ -79,13 +79,11 @@ class EditUserController implements IControllerBase {
         const {username, email} = req.body;
 
         if (!username || username.length < 3 || username.length > 20) {
-            res.status(400).send('Invalid username: must be between 3 and 20 characters');
-            return;
+            return next(new Error('Invalid username: must be between 3 and 20 characters'));
         }
 
         if (!isValidEmail(email)) {
-            res.status(400).send('Invalid email: must be a valid email address');
-            return;
+            return next(new Error('Invalid email: must be a valid email address'));
         }
 
         next();

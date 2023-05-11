@@ -23,9 +23,11 @@ html(lang="en")
             br
             button(type="submit") Update User
         script.
-            document.getElementById('editForm').addEventListener('submit', function(event) {
+            let form = document.getElementById('editForm');
+            form.addEventListener('submit', function (event) {
                 if (!this.checkValidity()) {
                     event.preventDefault();
                     event.stopPropagation();
                 }
+                form.classList.add('was-validated');
             });
