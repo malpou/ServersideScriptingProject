@@ -1,5 +1,5 @@
 import * as sharp from 'sharp';
-import {processProfilePicture} from "../../utils/imageProcessing";
+import {processProfilePicture} from "../../src/utils/imageProcessing";
 
 jest.mock('sharp');
 

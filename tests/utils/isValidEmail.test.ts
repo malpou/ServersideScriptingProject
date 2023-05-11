@@ -1,4 +1,4 @@
-import {isValidEmail} from "../../utils/validation";
+import {isValidEmail} from "../../src/utils/validation";
 
 describe('isValidEmail', () => {
     it('should return true for valid email addresses', () => {

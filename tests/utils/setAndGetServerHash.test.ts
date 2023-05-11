@@ -1,6 +1,6 @@
 import * as crypto from 'crypto';
-import SessionRequest from "../../interfaces/SessionRequest";
-import {setAndGetServerHash} from "../../utils/setAndGetServerHash";
+import SessionRequest from "../../src/interfaces/SessionRequest";
+import {setAndGetServerHash} from "../../src/utils/setAndGetServerHash";
 
 jest.mock('crypto');
 
