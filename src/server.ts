@@ -34,8 +34,8 @@ app.listen();
 // DONE 7: Add typedoc documentation
 // DONE 8: Deploy to render.com
 // TODO 9: Add authentication with passport.js
-// TODO 10: Alert users when they are deleting a user
-// TODO 11: Add a confirmation page when a user is deleted that redirects to the home page after 5 seconds
+// DONE 10: Alert users when they are deleting a user
+// DONE 11: Add a confirmation page when a user is deleted that redirects to the home page after 5 seconds
 // TODO 12: Add image preview when creating a user
 // TODO 13: Fix bug that chrashes the app then email witout .dk is entered on edit user page
 

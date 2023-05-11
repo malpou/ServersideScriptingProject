@@ -66,7 +66,7 @@ class EditUserController implements IControllerBase {
         }
 
         await this.userRepo.updateUser(id, userData);
-        res.redirect('/');
+        res.render('confirmation', {message: 'User has been successfully updated'});
     };
 
     /**

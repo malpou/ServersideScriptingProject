@@ -61,7 +61,7 @@ class CreateUserController implements IControllerBase {
         };
 
         await this.userRepo.createUser(userData);
-        res.redirect('/');
+        res.render('confirmation', {message: 'User created successfully'});
     };
 
     /**

@@ -1,0 +1,50 @@
+doctype html
+html
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        meta(http-equiv="X-UA-Compatible", content="ie=edge")
+        link(href='https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap' rel='stylesheet')
+        title Confirmation
+        style.
+            body {
+                font-family: 'Roboto', sans-serif;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                height: 100vh;
+                margin: 0;
+                background-color: #f0f0f0;
+                color: #333;
+                text-align: center;
+                line-height: 1.6;
+            }
+
+            h1 {
+                font-size: 2em;
+                margin-bottom: 0.5em;
+            }
+
+            p {
+                font-size: 1.2em;
+            }
+
+    body
+        h1 #{message}
+        p(id='countdown')
+        script.
+            const countdownText = (number) => `Redirecting to the home page in ${number} ${number !== 1 ? 'seconds' : 'second'}...`;
+            const countdownDisplay = document.getElementById('countdown');
+            let countdown = 5;
+            countdownDisplay.textContent = countdownText(countdown);
+
+            let countdownInterval = setInterval(() => {
+                countdown--;
+                countdownDisplay.textContent = countdownText(countdown);
+
+                if (countdown <= 0) {
+                    clearInterval(countdownInterval);
+                    window.location.href = '/';
+                }
+            }, 1000);

@@ -52,7 +52,7 @@ class HomeController implements IControllerBase {
             const id = parseInt(req.body.id);
             await this.userRepo.deleteUser(id);
         }
-        res.redirect('/');
+        res.render('confirmation', {message: 'User has been successfully deleted'});
     };
 }
 
