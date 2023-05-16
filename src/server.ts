@@ -24,22 +24,3 @@ const app = new App({
 });
 
 app.listen();
-
-// DONE 1: Styling the app
-// DONE 2: Add server-side validation
-// DONE 3: Add client-side validation
-// DONE 4: Add error handling
-// TODO 5: Add controller tests
-// DONE 6: Add authentication
-// DONE 7: Add typedoc documentation
-// DONE 8: Deploy to render.com
-// TODO 9: Add authentication with passport.js
-// DONE 10: Alert users when they are deleting a user
-// DONE 11: Add a confirmation page when a user is deleted that redirects to the home page after 5 seconds
-// DONE 12: Add image preview when creating a user
-// DONE 13: Fix bug that chrashes the app then email witout .dk is entered on edit user page
-// DONE 14: On edit user page, if the user does not exist, redirect to the home page
-// DONE 15: Persist data when editing or creating a user and the validation fails
-// TODO 16: Validate file type when uploading a profile picture and set max file size to 1 MB
-// TODO 17: Add a loading spinner when uploading a profile picture
-// TODO 18: Sanitize username and ensure that it's not already taken
